@@ -3,16 +3,29 @@ import type { ProductCategory } from "@/types";
 
 interface SearchState {
   query: string;
-  categoryFilter: ProductCategory | null;
+  categoryFilter: ProductCategory[];
   setQuery: (query: string) => void;
-  setCategoryFilter: (category: ProductCategory | null) => void;
+  toggleCategoryFilter: (category: ProductCategory) => void;
 }
 
 export const useSearchStore = create<SearchState>()((set) => ({
   query: "",
-  categoryFilter: null,
+  categoryFilter: [],
 
   setQuery: (query) => set({ query }),
 
-  setCategoryFilter: (category) => set({ categoryFilter: category }),
+  toggleCategoryFilter: (category) =>
+    set((state) => {
+      var isAlreadySelected = state.categoryFilter.includes(category);
+
+      if (isAlreadySelected) {
+        return {
+          categoryFilter: state.categoryFilter.filter((c) => c !== category),
+        };
+      } else {
+        return {
+          categoryFilter: [...state.categoryFilter, category],
+        };
+      }
+    }),
 }));

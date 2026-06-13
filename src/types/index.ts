@@ -45,4 +45,5 @@ export interface Category {
   name: string;
   slug: ProductCategory;
   image: string;
+  color: string;
 }

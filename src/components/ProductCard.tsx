@@ -1,8 +1,8 @@
 "use client";
 
-import { Heart, Minus, Plus } from "lucide-react";
+import Link from "next/link";
+import { Minus, Plus } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
-import { useFavoritesStore } from "@/store/favoritesStore";
 import type { Product, CartItem } from "@/types";
 
 interface ProductCardProps {
@@ -10,18 +10,14 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const cart = useCartStore((s) => s.cart);
-  const addToCart = useCartStore((s) => s.addToCart);
-  const updateQuantity = useCartStore((s) => s.updateQuantity);
+  var cart = useCartStore((s) => s.cart);
+  var addToCart = useCartStore((s) => s.addToCart);
+  var updateQuantity = useCartStore((s) => s.updateQuantity);
 
-  const favorites = useFavoritesStore((s) => s.favorites);
-  const toggleFavorite = useFavoritesStore((s) => s.toggleFavorite);
+  var cartItem = cart.find((item) => item.id === product.id);
 
-  const cartItem = cart.find((item) => item.id === product.id);
-  const isFav = favorites.includes(product.id);
-
-  const handleAdd = () => {
-    const item: CartItem = {
+  var handleAdd = () => {
+    var item: CartItem = {
       id: product.id,
       name: product.name,
       image: product.image,
@@ -33,27 +29,19 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 relative">
-      <button
-        onClick={() => toggleFavorite(product.id)}
-        className="absolute top-5 right-5 z-10 cursor-pointer"
-      >
-        <Heart
-          size={18}
-          className={isFav ? "fill-primary text-primary" : "text-textGray"}
+    <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100">
+      <Link href={`/product/${product.id}`}>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="h-24 w-full object-contain mb-2"
         />
-      </button>
 
-      <img
-        src={product.image}
-        alt={product.name}
-        className="h-24 w-full object-contain mb-2"
-      />
-
-      <p className="text-sm font-semibold text-textDark truncate">
-        {product.name}
-      </p>
-      <p className="text-xs text-textGray">{product.weight}</p>
+        <p className="text-sm font-semibold text-textDark truncate">
+          {product.name}
+        </p>
+        <p className="text-xs text-textGray">{product.weight}</p>
+      </Link>
 
       <div className="flex items-center justify-between mt-2">
         <span className="font-bold text-textDark">${product.price}</span>
@@ -61,11 +49,15 @@ export default function ProductCard({ product }: ProductCardProps) {
         {cartItem ? (
           <div className="flex items-center gap-2">
             <button
-              onClick={() =>
-                cartItem.quantity > 1
-                  ? updateQuantity(product.id, cartItem.quantity - 1)
-                  : useCartStore.getState().removeFromCart(product.id)
-              }
+              onClick={() => {
+                var item = cart.find((i) => i.id === product.id);
+                if (!item) return;
+                if (item.quantity > 1) {
+                  updateQuantity(product.id, item.quantity - 1);
+                } else {
+                  useCartStore.getState().removeFromCart(product.id);
+                }
+              }}
               className="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer"
             >
               <Minus size={14} />
@@ -76,9 +68,11 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
 
             <button
-              onClick={() =>
-                updateQuantity(product.id, cartItem.quantity + 1)
-              }
+              onClick={() => {
+                var item = cart.find((i) => i.id === product.id);
+                if (!item) return;
+                updateQuantity(product.id, item.quantity + 1);
+              }}
               className="w-7 h-7 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer"
             >
               <Plus size={14} />

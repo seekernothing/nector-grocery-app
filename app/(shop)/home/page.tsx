@@ -56,7 +56,7 @@ export default function Home() {
         <div className="mt-6 lg:order-1">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-bold text-textDark">Shop by Category</h2>
-            <span className="text-primary text-sm font-semibold">See all</span>
+            <Link href="/explore" className="text-primary text-sm font-semibold">See all</Link>
           </div>
           <div className="mt-3 flex gap-3 overflow-x-auto lg:grid lg:grid-cols-6 lg:gap-4 lg:overflow-visible">
             {categories.map((category) => (

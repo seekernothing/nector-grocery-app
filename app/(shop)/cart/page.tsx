@@ -128,7 +128,7 @@ export default function Cart() {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 p-4 z-40 lg:hidden">
+      <div className="fixed bottom-[70px] left-0 right-0 bg-white border-t border-gray-100 p-4 z-40 lg:hidden">
         <button
           onClick={() => {
             if (cart.length > 0) {

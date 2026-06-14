@@ -12,10 +12,10 @@ function DesktopHeader() {
   return (
     <header className="hidden lg:flex fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-6 w-full">
-        <div className="flex items-center">
+        <Link href="/home" className="flex items-center">
           <img src="/assets/images/carrot-img.png" alt="nectar" className="h-8" />
           <span className="font-bold text-textDark text-xl ml-2">nectar</span>
-        </div>
+        </Link>
 
         <Link
           href="/search"

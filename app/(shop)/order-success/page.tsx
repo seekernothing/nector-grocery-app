@@ -8,8 +8,8 @@ export default function OrderSuccess() {
   var router = useRouter();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-between px-6 py-12 bg-gradient-to-br from-pink-50 via-white to-green-50">
-      <div className="flex-1 flex flex-col items-center justify-center gap-6">
+    <div className="min-h-screen flex flex-col items-center justify-between px-6 py-12 bg-gradient-to-br from-pink-50 via-white to-green-50 lg:flex lg:items-center lg:justify-center">
+      <div className="flex-1 flex flex-col items-center justify-center gap-6 lg:bg-white lg:rounded-3xl lg:shadow-sm lg:p-16 lg:max-w-lg lg:flex-initial">
         <div className="relative w-64 h-64 flex items-center justify-center">
           <div className="absolute top-4 left-1/2 w-4 h-4 rounded-full bg-primary" />
           <div className="absolute top-6 left-2/3 w-2.5 h-2.5 rounded-full bg-red-400" />
@@ -34,20 +34,20 @@ export default function OrderSuccess() {
         <p className="text-textGray text-sm text-center max-w-xs">
           Your items has been placed and is on its way to being processed
         </p>
-      </div>
 
-      <div className="w-full flex flex-col gap-4">
-        <Button
-          label="Track Order"
-          variant="primary"
-          onClick={() => router.push("/home")}
-        />
-        <p
-          className="text-center font-bold text-textDark cursor-pointer"
-          onClick={() => router.push("/home")}
-        >
-          Back to home
-        </p>
+        <div className="w-full flex flex-col gap-4 mt-4">
+          <Button
+            label="Track Order"
+            variant="primary"
+            onClick={() => router.push("/home")}
+          />
+          <p
+            className="text-center font-bold text-textDark cursor-pointer"
+            onClick={() => router.push("/home")}
+          >
+            Back to home
+          </p>
+        </div>
       </div>
     </div>
   );

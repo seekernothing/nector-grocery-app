@@ -14,24 +14,26 @@ export default function Home() {
   var bestSellerProducts = products.filter((p) => p.isBestSeller === true);
 
   return (
-    <div className="px-5 py-4">
-      <div className="flex justify-center">
-        <img
-          src="/assets/images/carrot-img.png"
-          alt="Carrot"
-          className="h-8"
-        />
-      </div>
-      <div className="mt-2 flex items-center justify-center gap-1">
-        <MapPin size={16} className="text-primary" />
-        <span className="text-sm font-semibold text-textDark">
-          {location ? location : "FC Road Pune"}
-        </span>
+    <div className="px-5 py-4 max-w-7xl mx-auto">
+      <div className="lg:hidden">
+        <div className="flex justify-center">
+          <img
+            src="/assets/images/carrot-img.png"
+            alt="Carrot"
+            className="h-8"
+          />
+        </div>
+        <div className="mt-2 flex items-center justify-center gap-1">
+          <MapPin size={16} className="text-primary" />
+          <span className="text-sm font-semibold text-textDark">
+            {location ? location : "FC Road Pune"}
+          </span>
+        </div>
       </div>
 
       <Link
         href="/search"
-        className="mt-4 rounded-full bg-gray-100 px-4 py-3 flex items-center gap-2"
+        className="mt-4 rounded-full bg-gray-100 px-4 py-3 flex items-center gap-2 lg:hidden"
       >
         <Search size={18} className="text-gray-400" />
         <span className="text-textGray">Search Store</span>
@@ -41,7 +43,7 @@ export default function Home() {
         <img
           src="/assets/images/banner.png"
           alt="Banner"
-          className="w-full h-36 object-cover rounded-2xl"
+          className="w-full h-36 lg:h-56 object-cover rounded-2xl"
         />
         <div className="mt-2 flex justify-center gap-1">
           <div className="w-6 h-2 rounded-full bg-primary" />
@@ -50,56 +52,58 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg font-bold text-textDark">Exclusive Offer</h2>
-          <span className="text-primary text-sm font-semibold">See all</span>
+      <div className="flex flex-col lg:flex-col">
+        <div className="mt-6 lg:order-1">
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-bold text-textDark">Shop by Category</h2>
+            <span className="text-primary text-sm font-semibold">See all</span>
+          </div>
+          <div className="mt-3 flex gap-3 overflow-x-auto lg:grid lg:grid-cols-6 lg:gap-4 lg:overflow-visible">
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                href={`/category/${category.slug}`}
+                className={`${category.color} w-28 h-28 flex-shrink-0 rounded-2xl flex flex-col items-center justify-center gap-2 p-2 text-center lg:w-auto lg:h-auto lg:aspect-square`}
+              >
+                <img
+                  src={category.image}
+                  alt={category.name}
+                  className="h-12 w-12 object-contain lg:h-16 lg:w-16"
+                />
+                <span className="text-xs font-semibold text-textDark">
+                  {category.name}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
-        <div className="mt-3 flex gap-3 overflow-x-auto">
-          {exclusiveProducts.map((product) => (
-            <div key={product.id} className="w-40 flex-shrink-0">
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-      </div>
 
-      <div className="mt-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg font-bold text-textDark">Best Selling</h2>
-          <span className="text-primary text-sm font-semibold">See all</span>
+        <div className="mt-6 lg:order-2">
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-bold text-textDark">Exclusive Offer</h2>
+            <span className="text-primary text-sm font-semibold">See all</span>
+          </div>
+          <div className="mt-3 flex gap-3 overflow-x-auto lg:grid lg:grid-cols-5 lg:gap-4 lg:overflow-visible">
+            {exclusiveProducts.map((product) => (
+              <div key={product.id} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="mt-3 flex gap-3 overflow-x-auto">
-          {bestSellerProducts.map((product) => (
-            <div key={product.id} className="w-40 flex-shrink-0">
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
-      </div>
 
-      <div className="mt-6">
-        <div className="flex justify-between items-center">
-          <h2 className="text-lg font-bold text-textDark">Shop by Category</h2>
-          <span className="text-primary text-sm font-semibold">See all</span>
-        </div>
-        <div className="mt-3 flex gap-3 overflow-x-auto">
-          {categories.map((category) => (
-            <Link
-              key={category.id}
-              href={`/category/${category.slug}`}
-              className={`${category.color} w-28 h-28 flex-shrink-0 rounded-2xl flex flex-col items-center justify-center gap-2 p-2 text-center`}
-            >
-              <img
-                src={category.image}
-                alt={category.name}
-                className="h-12 w-12 object-contain"
-              />
-              <span className="text-xs font-semibold text-textDark">
-                {category.name}
-              </span>
-            </Link>
-          ))}
+        <div className="mt-6 lg:order-3">
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-bold text-textDark">Best Selling</h2>
+            <span className="text-primary text-sm font-semibold">See all</span>
+          </div>
+          <div className="mt-3 flex gap-3 overflow-x-auto lg:grid lg:grid-cols-5 lg:gap-4 lg:overflow-visible">
+            {bestSellerProducts.map((product) => (
+              <div key={product.id} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

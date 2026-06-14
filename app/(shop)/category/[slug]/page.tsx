@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import { ChevronLeft, SlidersHorizontal } from "lucide-react";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
@@ -28,7 +29,7 @@ export default function CategoryPage() {
   }
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <div className="px-5 py-4 flex items-center justify-between">
         <button
           onClick={() => router.back()}
@@ -41,16 +42,35 @@ export default function CategoryPage() {
 
         <button
           onClick={() => setShowFilters(true)}
-          className="cursor-pointer"
+          className="cursor-pointer lg:hidden"
         >
           <SlidersHorizontal size={20} className="text-textDark" />
         </button>
       </div>
 
-      <div className="px-5 grid grid-cols-2 gap-4">
-        {categoryProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+      <div className="lg:flex lg:gap-8 lg:px-8">
+        <div className="hidden lg:block lg:w-64 lg:flex-shrink-0">
+          <h2 className="font-bold text-textDark mb-4">Filter by Category</h2>
+          {categories.map((cat) => (
+            <Link
+              key={cat.id}
+              href={`/category/${cat.slug}`}
+              className={`block py-2 px-3 rounded-xl text-sm ${
+                cat.slug === slug
+                  ? "bg-primary/10 text-primary font-semibold"
+                  : "text-textGray hover:bg-gray-50"
+              }`}
+            >
+              {cat.name}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex-1 px-5 lg:px-0 grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 lg:mt-0">
+          {categoryProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
 
       <Filters

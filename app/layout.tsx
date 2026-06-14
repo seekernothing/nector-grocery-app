@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nector — Grocery Delivery",
+  title: "Nector",
   description: "Fresh groceries delivered to your doorstep",
+  icons: {
+    icon: "/assets/icons/carrot-icon.svg",
+  },
 };
 
 export default function RootLayout({

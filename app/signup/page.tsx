@@ -17,8 +17,16 @@ export default function SignUp() {
   }
 
   return (
-    <div className="bg-white min-h-screen flex flex-col">
-      <div className="w-full h-[50vh] overflow-hidden relative">
+    <div className="bg-white min-h-screen lg:h-screen flex flex-col lg:flex-row max-w-7xl mx-auto lg:overflow-hidden">
+      <div className="hidden lg:block lg:w-1/2 lg:h-full overflow-hidden">
+        <img
+          src="/assets/images/signuppage.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+      </div>
+
+      <div className="w-full h-[50vh] overflow-hidden relative lg:hidden">
         <img
           src="/assets/images/signuppage.jpg"
           alt=""
@@ -27,7 +35,7 @@ export default function SignUp() {
         />
       </div>
 
-      <div className="flex flex-col flex-1 px-6 pt-8 pb-10">
+      <div className="flex flex-col flex-1 lg:flex-none lg:w-1/2 px-6 pt-8 pb-10 lg:justify-center lg:overflow-y-auto">
         <h1 className="text-3xl font-bold text-textDark leading-tight mb-6">
           Get your groceries<br />with nectar
         </h1>

@@ -29,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100">
+    <div className="bg-white rounded-2xl p-3 shadow-sm border border-gray-100 transition-shadow duration-200 hover:shadow-md">
       <Link href={`/product/${product.id}`}>
         <img
           src={product.image}
@@ -81,7 +81,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         ) : (
           <button
             onClick={handleAdd}
-            className="text-sm text-primary font-semibold cursor-pointer"
+            className="text-sm text-primary font-semibold cursor-pointer transition-all duration-150 active:scale-90"
           >
             Add
           </button>

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search, X, SlidersHorizontal } from "lucide-react";
+import Link from "next/link";
+import { Search, X, SlidersHorizontal, SearchX } from "lucide-react";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { useSearchStore } from "@/store/searchStore";
 import ProductCard from "@/components/ProductCard";
+import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 import Filters from "@/components/Filters";
 
 export default function SearchPage() {
@@ -16,10 +18,13 @@ export default function SearchPage() {
 
   var [inputValue, setInputValue] = useState(query);
   var [showFilters, setShowFilters] = useState(false);
+  var [searching, setSearching] = useState(false);
 
   useEffect(() => {
+    setSearching(true);
     var timer = setTimeout(() => {
       setQuery(inputValue);
+      setSearching(false);
     }, 300);
 
     return () => clearTimeout(timer);
@@ -94,14 +99,31 @@ export default function SearchPage() {
         </div>
 
         <div className="flex-1">
-          {filteredProducts.length > 0 ? (
+          {searching && inputValue !== "" ? (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 lg:mt-0">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <ProductCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : filteredProducts.length > 0 ? (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 lg:mt-0">
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>
           ) : (
-            <p className="text-textGray text-center mt-10">No products found</p>
+            <div className="mt-16 flex flex-col items-center gap-3 text-center">
+              <SearchX size={48} className="text-gray-300" />
+              <p className="text-base font-semibold text-textDark">
+                {query ? `No results for "${query}"` : "No products found"}
+              </p>
+              <p className="text-sm text-textGray">
+                Try a different name or browse categories
+              </p>
+              <Link href="/explore" className="text-primary text-sm font-semibold">
+                Browse Categories
+              </Link>
+            </div>
           )}
         </div>
       </div>

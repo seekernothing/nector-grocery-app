@@ -52,7 +52,7 @@ export default function CheckoutModal({
         onClick={onClose}
       >
         <div
-          className="bg-white rounded-t-3xl w-full p-6 z-50 max-h-screen overflow-y-auto"
+          className="bg-white rounded-t-3xl w-full p-6 z-50 max-h-screen overflow-y-auto transition-transform duration-300"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center">

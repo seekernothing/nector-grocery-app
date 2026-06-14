@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, SlidersHorizontal } from "lucide-react";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import ProductCard from "@/components/ProductCard";
+import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 import Filters from "@/components/Filters";
 
 export default function CategoryPage() {
@@ -15,6 +16,11 @@ export default function CategoryPage() {
   var slug = params.slug as string;
 
   var [showFilters, setShowFilters] = useState(false);
+  var [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 800);
+  }, []);
 
   var category = categories.find((c) => c.slug === slug);
 
@@ -67,9 +73,13 @@ export default function CategoryPage() {
         </div>
 
         <div className="flex-1 px-5 lg:px-0 grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4 lg:mt-0">
-          {categoryProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {loading
+            ? Array.from({ length: 8 }).map((_, i) => (
+                <ProductCardSkeleton key={i} />
+              ))
+            : categoryProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
         </div>
       </div>
 

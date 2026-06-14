@@ -39,12 +39,15 @@ export default function Favorites() {
       <div className="border-t border-gray-100 mt-2 mb-4" />
 
       {favoriteProducts.length === 0 ? (
-        <div className="mt-20 flex flex-col items-center gap-3">
-          <Heart size={48} className="text-gray-300" />
-          <p className="text-textGray text-sm">No favourites yet</p>
-          <Link href="/explore" className="text-primary">
-            Browse products
-          </Link>
+        <div className="mt-32 flex flex-col items-center gap-4 text-center">
+          <Heart size={56} className="text-gray-200" strokeWidth={1.5} />
+          <p className="text-lg font-semibold text-textDark">No favourites yet</p>
+          <p className="text-sm text-textGray">Tap the heart on any product to save it here</p>
+          <div className="max-w-xs w-full">
+            <Link href="/explore">
+              <Button label="Browse Products" variant="secondary" onClick={() => {}} />
+            </Link>
+          </div>
         </div>
       ) : (
         <>

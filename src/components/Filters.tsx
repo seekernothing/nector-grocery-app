@@ -37,7 +37,7 @@ export default function Filters({ isOpen, onClose }: FiltersProps) {
       onClick={onClose}
     >
       <div
-        className="bg-gray-50 rounded-t-3xl w-full p-6 z-50"
+        className="bg-gray-50 rounded-t-3xl w-full p-6 z-50 transition-transform duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center">

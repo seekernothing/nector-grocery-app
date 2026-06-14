@@ -1,17 +1,25 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { MapPin, Search } from "lucide-react";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 import { useLocationStore } from "@/store/locationStore";
 import ProductCard from "@/components/ProductCard";
+import ProductCardSkeleton from "@/components/ProductCardSkeleton";
 
 export default function Home() {
   var location = useLocationStore((s) => s.location);
 
   var exclusiveProducts = products.filter((p) => p.isExclusiveOffer === true);
   var bestSellerProducts = products.filter((p) => p.isBestSeller === true);
+
+  var [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
 
   return (
     <div className="px-5 py-4 max-w-7xl mx-auto">
@@ -43,7 +51,7 @@ export default function Home() {
         <img
           src="/assets/images/banner.png"
           alt="Banner"
-          className="w-full h-36 lg:h-56 object-cover rounded-2xl"
+          className="w-full h-36 lg:h-56 object-cover rounded-2xl transition-opacity duration-300"
         />
         <div className="mt-2 flex justify-center gap-1">
           <div className="w-6 h-2 rounded-full bg-primary" />
@@ -84,11 +92,17 @@ export default function Home() {
             <span className="text-primary text-sm font-semibold">See all</span>
           </div>
           <div className="mt-3 flex gap-3 overflow-x-auto lg:grid lg:grid-cols-5 lg:gap-4 lg:overflow-visible">
-            {exclusiveProducts.map((product) => (
-              <div key={product.id} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
-                <ProductCard product={product} />
-              </div>
-            ))}
+            {loading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
+                    <ProductCardSkeleton />
+                  </div>
+                ))
+              : exclusiveProducts.map((product) => (
+                  <div key={product.id} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
+                    <ProductCard product={product} />
+                  </div>
+                ))}
           </div>
         </div>
 
@@ -98,11 +112,17 @@ export default function Home() {
             <span className="text-primary text-sm font-semibold">See all</span>
           </div>
           <div className="mt-3 flex gap-3 overflow-x-auto lg:grid lg:grid-cols-5 lg:gap-4 lg:overflow-visible">
-            {bestSellerProducts.map((product) => (
-              <div key={product.id} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
-                <ProductCard product={product} />
-              </div>
-            ))}
+            {loading
+              ? Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
+                    <ProductCardSkeleton />
+                  </div>
+                ))
+              : bestSellerProducts.map((product) => (
+                  <div key={product.id} className="w-40 flex-shrink-0 lg:w-auto lg:flex-shrink">
+                    <ProductCard product={product} />
+                  </div>
+                ))}
           </div>
         </div>
       </div>

@@ -19,11 +19,11 @@ export default function Button({
   loading = false,
   disabled = false,
 }: ButtonProps) {
-  const base = "rounded-2xl py-4 w-full font-semibold text-center transition-colors";
+  const base = "rounded-2xl py-4 w-full font-semibold text-center transition-colors transition-all duration-200 active:scale-95";
 
   const variants = {
-    primary: "bg-primary text-white",
-    secondary: "bg-white border border-primary text-primary",
+    primary: "bg-primary text-white hover:bg-green-600",
+    secondary: "bg-white border border-primary text-primary hover:bg-primary/5",
   };
 
   return (

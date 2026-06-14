@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Minus, Plus, X, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import CheckoutModal from "@/components/CheckoutModal";
+import Button from "@/components/ui/Button";
 
 export default function Cart() {
   var cart = useCartStore((s) => s.cart);
@@ -24,12 +25,15 @@ export default function Cart() {
         <div className="border-t border-gray-100 mt-2 mb-4" />
 
         {cart.length === 0 ? (
-          <div className="mt-20 flex flex-col items-center gap-3">
-            <ShoppingCart size={48} className="text-gray-300" />
-            <p className="text-textGray">Your cart is empty</p>
-            <Link href="/home" className="text-primary font-semibold">
-              Start shopping
-            </Link>
+          <div className="mt-32 flex flex-col items-center gap-4 text-center">
+            <img src="/assets/images/carrot-img.png" alt="Empty cart" className="h-24 w-24 object-contain opacity-30" />
+            <p className="text-lg font-semibold text-textDark">Your cart is empty</p>
+            <p className="text-sm text-textGray">Looks like you haven&apos;t added anything yet</p>
+            <div className="max-w-xs w-full">
+              <Link href="/home">
+                <Button label="Shop Now" variant="primary" onClick={() => {}} />
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="lg:flex lg:gap-10 lg:items-start lg:px-12 lg:py-8">
